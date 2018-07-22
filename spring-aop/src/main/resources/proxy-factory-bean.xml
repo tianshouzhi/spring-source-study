@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 配置被代理对象 -->
+    <bean id="crudService" class="com.tianshouzhi.aop.spring.CrudServiceImpl"/>
+    <!-- 增强 -->
+    <bean id="methodBeforeAdvice" class="com.tianshouzhi.aop.spring.proxyfactorybean.MethodBeforeAdviceImpl"/>
+    <!-- 创建代理 -->
+    <bean id="crudServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!-- 目标 -->
+        <property name="target" ref="crudService"/>
+        <!--如果被代理的类，实现了接口，则默认会使用JDK动态，创建JdkDynamicAopProxy实例
+           一个类可以实现多个接口，可以通过proxyInterfaces指定需要针对那些接口的进行代理-->
+        <property name="proxyInterfaces" value="com.tianshouzhi.aop.spring.CrudService"/>
+        <!-- 增强 interceptorNames表示可以运用多个advice,必须写 value-->
+        <property name="interceptorNames" value="methodBeforeAdvice"/>
+
+
+        <!--当指定optimize为true时，将强制使用cglib进行动态代理，默认为false-->
+        <property name="optimize" value="true"/>
+    </bean>
+</beans>

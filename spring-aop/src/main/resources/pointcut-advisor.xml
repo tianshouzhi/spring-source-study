@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="crudService" class="com.tianshouzhi.aop.spring.CrudServiceImpl"/>
+
+    <bean id="methodInterceptor" class="com.tianshouzhi.aop.spring.pointcutadvisor.MethodInterceptorImpl"/>
+    <!-- 定义切点pointcut，由正则表达式执行对哪些方法进行拦截 -->
+    <bean id="advisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <!-- 正则表达式规则： .可以匹配一个任意字符， *表示任意多个，即代理所有方法 -->
+        <property name="pattern" value=".*"></property>
+        <property name="advice" ref="methodInterceptor"></property>
+    </bean>
+
+    <!-- 创建代理 -->
+    <bean id="crudServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="crudService"/>
+        <!-- 针对类代理 -->
+        <property name="proxyTargetClass" value="true"/>
+        <!-- 切面包含了增强，此时value等于切面即可 -->
+        <!--jdk proxy可以通过proxyInterfaces属性来指定对那些接口定义的方法进行拦截，对于这种没有实现接口的类，
+        通过Advisor来指定对那些方法进行拦截，也就是说，advice(方法增强)和method(joinpiont)都定义在advisor中-->
+        <property name="interceptorNames" value="advisor"/>
+    </bean>
+</beans>

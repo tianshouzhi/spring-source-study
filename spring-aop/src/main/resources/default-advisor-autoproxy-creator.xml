@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 配置被代理对象 -->
+    <bean id= "helloService" class ="com.tianshouzhi.aop.basic.jdkproxy.HelloServiceImpl"/>
+    <bean id= "crudService" class ="com.tianshouzhi.aop.spring.CrudServiceImpl"/>
+
+    <!-- 增强 -->
+    <bean id= "methodBeforeAdvice" class="com.tianshouzhi.aop.spring.proxyfactorybean.MethodBeforeAdviceImpl"/>
+    <bean id= "methodInterceptor" class="com.tianshouzhi.aop.spring.pointcutadvisor.MethodInterceptorImpl"/>
+
+    <!-- 切面 -->
+    <bean id= "advisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor" >
+        <!-- 切点拦截的信息 -->
+        <property name="patterns" value=".*add(),.*hello()"/>
+        <!--只能添加一种增强?-->
+        <property name="advice" ref="methodBeforeAdvice"/>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+</beans>

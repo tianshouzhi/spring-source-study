@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 配置被代理对象 -->
+    <bean id= "helloService" class ="com.tianshouzhi.aop.basic.jdkproxy.HelloServiceImpl"/>
+    <bean id= "crudService" class ="com.tianshouzhi.aop.spring.CrudServiceImpl"/>
+
+    <!-- 增强 -->
+    <bean id= "methodBeforeAdvice" class="com.tianshouzhi.aop.spring.proxyfactorybean.MethodBeforeAdviceImpl"/>
+    <bean id= "methodInterceptor" class="com.tianshouzhi.aop.spring.pointcutadvisor.MethodInterceptorImpl"/>
+
+    <!-- BeanName自动代理 -->
+    <!-- 后处理Bean 不需要配置 id，因此可以代理多个需要代理的对象 -->
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator" >
+        <!-- *DAO，对所有 DAO结尾的Bean 进行代理 -->
+        <property name="beanNames" value="*Service"/>
+        <!-- 增强 -->
+        <property name="interceptorNames" value="methodBeforeAdvice,methodInterceptor"/>
+    </bean>
+</beans>

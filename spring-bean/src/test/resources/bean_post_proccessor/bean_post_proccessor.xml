@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd" >
+    <!--使得@Autowired直接生效-->
+    <context:annotation-config/>
+    <!--配置HelloService，通过init-method指定初始化方法-->
+    <bean class="com.tianshouzhi.bean.bean_post_processor.CustomBeanPostProcessor"/>
+    <!--配置BeanPostProcessor-->
+    <bean id="helloService" class="com.tianshouzhi.bean.bean_post_processor.HelloService"
+          init-method="init">
+        <!--通过property标签为name属性赋值-->
+        <property name="name" value="tianshouzhi"/>
+    </bean>
+</beans>

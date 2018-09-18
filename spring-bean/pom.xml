@@ -12,9 +12,6 @@
     <artifactId>spring-bean</artifactId>
 
    <dependencies>
-       <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-beans</artifactId>
-       </dependency>
+
    </dependencies>
 </project>

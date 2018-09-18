@@ -7,6 +7,6 @@
     <bean class="com.tianshouzhi.aop.spring.aspectj.AspectJAnnotationImpl"/>
 
     <!-- 配置被代理对象 -->
-    <bean id= "helloService" class ="com.tianshouzhi.aop.basic.jdkproxy.HelloServiceImpl"/>
+    <bean id= "helloService" class ="com.tianshouzhi.aop.HelloServiceImpl"/>
     <bean id= "crudService" class ="com.tianshouzhi.aop.spring.CrudServiceImpl"/>
 </beans>

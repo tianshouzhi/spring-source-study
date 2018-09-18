@@ -2,8 +2,6 @@ package com.tianshouzhi.aop;
 
 import com.tianshouzhi.aop.basic.cglib.CglibProxyFactory;
 import com.tianshouzhi.aop.basic.cglib.HelloCglib;
-import com.tianshouzhi.aop.basic.jdkproxy.HelloService;
-import com.tianshouzhi.aop.basic.jdkproxy.HelloServiceImpl;
 import com.tianshouzhi.aop.basic.jdkproxy.JDKProxyFactory;
 import com.tianshouzhi.aop.spring.CrudService;
 import org.junit.Test;
@@ -14,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AopTest {
     @Test
     public void testJdkProxy() {
-        HelloService proxy = JDKProxyFactory.getProxy(HelloServiceImpl.class);
+        HelloService proxy = JDKProxyFactory.getProxy(new HelloServiceImpl());
         proxy.hello();
     }
 
@@ -62,15 +60,15 @@ public class AopTest {
     @Test
     public void testAutoProxy(){
         ApplicationContext context = new ClassPathXmlApplicationContext("bean-name-auto-proxy-creator.xml");
-        CrudService crudService = context.getBean("crudService", CrudService.class);
+//        CrudService crudService = context.getBean("crudService", CrudService.class);
         HelloService helloService = context.getBean("helloService", HelloService.class);
 
         helloService.hello();
-
-        crudService.add();
-        crudService.del();
-        crudService.update();
-        crudService.search();
+//
+//        crudService.add();
+//        crudService.del();
+//        crudService.update();
+//        crudService.search();
     }
 
     @Test

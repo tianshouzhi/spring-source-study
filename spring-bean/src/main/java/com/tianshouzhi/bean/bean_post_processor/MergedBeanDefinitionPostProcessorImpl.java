@@ -1,4 +1,4 @@
-package com.tianshouzhi.bean.beanpostprocessor;
+package com.tianshouzhi.bean.bean_post_processor;
 
 public class MergedBeanDefinitionPostProcessorImpl {
 }
